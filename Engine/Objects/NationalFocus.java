@@ -15,8 +15,8 @@ public class NationalFocus {
     public int y = 0;
     public int absolute_x = 0;
     public int absolute_y = 0;
-    public List<String> mutually_exclusive;
-    public List<String> otherdata;
-    public List<Offset> offsets;
-    public List<List<String>> prerequisites = new ArrayList<List<String>>(Collections.emptyList());
+    public List<NationalFocus> mutually_exclusive = new ArrayList<NationalFocus>(Collections.emptyList());
+    public List<String> otherdata = new ArrayList<String>(Collections.emptyList());
+    public List<Offset> offsets = new ArrayList<Offset>(Collections.emptyList());
+    public List<List<NationalFocus>> prerequisites = new ArrayList<List<NationalFocus>>(Collections.emptyList());
 }

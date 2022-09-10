@@ -1,7 +1,6 @@
 package Engine;
 
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,7 +24,7 @@ import mainclassfolder.Main;
 public class WorkEnvironment {
     //workplace info
     public static boolean workplacemenu = false;
-    public static JMenuBar workplacemenuinstance = Menu.WorkPlaceMenu.workplacemenu("focus", "");
+    public static JMenuBar workplacemenuinstance = Menu.WorkPlaceMenu.workplacemenu(null, null);;
     //focus modding data
     public static NationalFocusTree nationalfocustree;
     //gui data
@@ -72,19 +71,19 @@ public class WorkEnvironment {
     }
     public void clearworkenvironment(){
         //clear gui
-        leftmenu = new JPanel(new BorderLayout());
-        rightmenu = new JPanel(new BorderLayout());
-        workplace = new JPanel(new BorderLayout());
         titlelable.setText("Пустое рабочее пространство");
         focustree.setVisible(false);
         //clear focus data
         nationalfocustree = null;
     }
-
+    public void updateworkplace() {
+        workplace.updateUI();
+        workplace.repaint();
+    }
 
     
     //focus modding: operations
-    public void initfocusmodding(){
+    public void initfocusmodding() {
         initfocusmodding(new NationalFocusTree("generic_focus_tree"));
     }
     public void initfocusmodding(NationalFocusTree nationalfocustree){
@@ -92,17 +91,18 @@ public class WorkEnvironment {
         titlelable.setText("Генерация древа фокусов");
         updatefocustree();
         focustree.setVisible(true);
-        workplace.updateUI();
+        updateworkplace();
     }
-    public void addfocus(NationalFocus nationalfocus){
+    public void addfocus(NationalFocus nationalfocus) {
         nationalfocustree.nationalfocuses.add(nationalfocus);
+        updateworkplace();
         updatefocustree();
     }
-    public void removefocus(String id){
+    public void removefocus(String id) {
 
     }
     //focus modding: render
-    public void updatefocustree(){
+    public void updatefocustree() {
         //antipattern - to do reload instead of overload
         leftmenu.remove(focustree);
         focustree = new JTree(JTreeClass.buildfocustree(nationalfocustree));

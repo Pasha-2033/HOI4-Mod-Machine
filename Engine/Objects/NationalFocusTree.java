@@ -12,6 +12,7 @@ public class NationalFocusTree {
     public boolean reset_on_civilwar = false;
     public int continuous_focus_position_x = 0;
     public int continuous_focus_position_y = 0;
+    public List<String> otherdata = new ArrayList<String>(Collections.emptyList());
     public List<Offset> offsets = new ArrayList<Offset>(Collections.emptyList());
     public List<NationalFocus> nationalfocuses = new ArrayList<NationalFocus>(Collections.emptyList());
 }

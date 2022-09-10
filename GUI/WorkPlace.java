@@ -1,7 +1,5 @@
 package GUI;
-
 import javax.swing.JPanel;
-import java.awt.Point;
 import java.awt.Shape;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -29,6 +27,7 @@ public class WorkPlace extends JPanel {
     }
     private void paintfocusconnections(Graphics2D g2d) {
         for (NationalFocus focus : WorkEnvironment.nationalfocustree.nationalfocuses) {
+            //переделать
             drawOR(g2d, focus);
             drawAND(g2d, focus);
             drawXOR(g2d, focus);
@@ -45,13 +44,22 @@ public class WorkPlace extends JPanel {
         //вниз штрих
     }
     private void drawXOR(Graphics2D g2d, NationalFocus focus) {
-        
+        //int i = 3;
+        //int y;
+        for (NationalFocus exlusive : focus.mutually_exclusive) {
+            if (focus.y == exlusive.y && exlusive != focus) {
+                //y = focus.y * i;
+                g2d.drawImage(null, 0, 0, 0, 0, null);    //focus leftarrow
+                g2d.drawImage(null, 0, 0, 0, 0, null);    //focus rigtharrow
+                //g2d.drawLine(0, y, 0, y);
+            }
+        }
     }
     private void paintfocuses(Graphics2D g2d) {
         for (NationalFocus focus : WorkEnvironment.nationalfocustree.nationalfocuses) {
             g2d.drawImage(null, 0, 0, 0, 0, null);    //focus image
             g2d.drawImage(null, 0, 0, 0, 0, null);    //focus lable
-            g2d.drawString("Focus", 0, 0);
+            g2d.drawString(focus.id, 0, 0);
         }
     }
     private void paintcontinuousfocus(Graphics2D g2d){

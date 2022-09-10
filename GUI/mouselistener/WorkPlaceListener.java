@@ -5,6 +5,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputAdapter;
 
 import Engine.WorkEnvironment;
+import GUI.Menu;
+import mainclassfolder.Main;
 public class WorkPlaceListener extends MouseInputAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -15,11 +17,18 @@ public class WorkPlaceListener extends MouseInputAdapter {
             }
         }
         if (SwingUtilities.isRightMouseButton(e)) {
+            String type = null;
+            if (WorkEnvironment.nationalfocustree != null) type = "focus";
+            Main.workenvironment.workplace.remove(WorkEnvironment.workplacemenuinstance);
+            WorkEnvironment.workplacemenuinstance = Menu.WorkPlaceMenu.workplacemenu(type, null);
+            Main.workenvironment.workplace.add(WorkEnvironment.workplacemenuinstance);
+            WorkEnvironment.workplacemenuinstance.setBounds(0, 0,(int) WorkEnvironment.workplacemenuinstance.getPreferredSize().getWidth(),(int) WorkEnvironment.workplacemenuinstance.getPreferredSize().getHeight());
             WorkEnvironment.workplacemenuinstance.setLocation(e.getX(), e.getY());
             if (!WorkEnvironment.workplacemenu) {
                 WorkEnvironment.workplacemenuinstance.setVisible(true);
                 WorkEnvironment.workplacemenu = true;
             }
+            Main.workenvironment.updateworkplace();
         }
     }
     @Override

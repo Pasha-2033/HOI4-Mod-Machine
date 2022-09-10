@@ -42,6 +42,7 @@ public class Menu {
     public static class WorkPlaceMenu {
         public static JMenuBar workplacemenu(String type, String target){
             JMenuBar menu = new JMenuBar();
+            if (type == null) return menu;
             switch (type) {
                 case "focus":
                     menu.add(focusmenu(target));
