@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import Engine.Objects.ObjectAttribute.Offset;
 public class NationalFocusTree {
+    public NationalFocusTree(){}
     public NationalFocusTree(String id){
         this.id = id;
     }
