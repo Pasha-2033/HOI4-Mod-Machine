@@ -35,6 +35,14 @@ public class Compressor {
                 if (t.contains("#")) {
                     t = t.substring(0, t.indexOf("#"));
                 }
+                while(t.length() > 0) {
+                    if (t.charAt(t.length() - 1) == '\t' || t.charAt(t.length() - 1) == ' ') {
+                        t = t.substring(0, t.length() - 1);
+                    }
+                    else {
+                        break;
+                    }
+                }
                 if (t.length() > 0) {
                     text += t + "\n";
                 }
@@ -42,11 +50,10 @@ public class Compressor {
             //сжатие по "="
             for (int i = 0; i < text.length(); i++) {
                 if (text.charAt(i) == '=')  {
-                    while (text.charAt(i + 1) == ' ') {
+                    while (text.charAt(i + 1 < text.length() ? i + 1 : i) == ' ') {
                         text = text.substring(0, i + 1) + text.substring(i + 2);
-                        i--;
                     }
-                    while (text.charAt(i - 1) == ' ') {
+                    while (text.charAt(i - 1 > -1 ? i - 1 : 0) == ' ') {
                         text = text.substring(0, i - 1) + text.substring(i);
                         i--;
                     }
@@ -66,15 +73,13 @@ public class Compressor {
                 if (text.charAt(i) == '"')  {
                     stringisclosed = !stringisclosed;
                     if (stringisclosed && forced) {
-                        if (i - 1 > -1) {
-                            while (text.charAt(i - 1) == ' ') {
-                                text = text.substring(0, i - 1) + text.substring(i);
-                                i--;
-                            }
+                        while (text.charAt(i - 1 > -1 ? i - 1 : 0) == ' ') {
+                            text = text.substring(0, i - 1) + text.substring(i);
+                            i--;
                         }
                     }
                 } else if (text.charAt(i) == '{' || text.charAt(i) == ' ') {
-                    if (i + 1 == text.length()) break;
+                    if (!(i + 1 < text.length())) break;
                     if (forced || stringisclosed) {
                         while (text.charAt(i + 1) == ' ') {
                             text = text.substring(0, i + 1) + text.substring(i + 2);
@@ -82,19 +87,20 @@ public class Compressor {
                         }
                     }
                 } else if (text.charAt(i) == '}') {
-                    if (i - 1 > -1) {
-                        while (text.charAt(i - 1) == ' ') {
-                            text = text.substring(0, i - 1) + text.substring(i);
-                            i--;
-                        }
+                    while (text.charAt(i - 1 > -1 ? i - 1 : 0) == ' ') {
+                        text = text.substring(0, i - 1) + text.substring(i);
+                        i--;
+                    }
+                    while (text.charAt(i + 1 < text.length() ? i + 1 : i) == ' ') {
+                        text = text.substring(0, i + 1) + text.substring(i + 2);
+                        i--;
                     }
                 }
             }
-            //проеверить, можно ли убрать после "}" пробелы
             //проверка для спецсимвола, если кодировка utf-8 with bom
             if (text.startsWith("\uFEFF")) text = text.substring(1);
 
-            System.out.println(text);
+            //System.out.println(text);
             reader.close();
             return text;
         }

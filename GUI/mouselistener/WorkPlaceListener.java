@@ -5,6 +5,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputAdapter;
 
 import Engine.WorkEnvironment;
+import Engine.Objects.NationalFocus;
 import GUI.Menu;
 import mainclassfolder.Main;
 public class WorkPlaceListener extends MouseInputAdapter {
@@ -18,7 +19,13 @@ public class WorkPlaceListener extends MouseInputAdapter {
         }
         if (SwingUtilities.isRightMouseButton(e)) {
             String type = null;
-            if (WorkEnvironment.nationalfocustree != null) type = "focus";
+            if (!WorkEnvironment.focusmodding.trees.isEmpty()) {
+                //if mouse in focus shape - type = "focus"
+                for (NationalFocus focus : WorkEnvironment.focusmodding.trees.get(WorkEnvironment.focusmodding.selectedtree).nationalfocuses) {
+                    //if mouse in focus shape - type = "focus"
+                    if (type != null) break;
+                }
+            }
             Main.workenvironment.workplace.remove(WorkEnvironment.workplacemenuinstance);
             WorkEnvironment.workplacemenuinstance = Menu.WorkPlaceMenu.workplacemenu(type, null);
             Main.workenvironment.workplace.add(WorkEnvironment.workplacemenuinstance);
@@ -42,7 +49,14 @@ public class WorkPlaceListener extends MouseInputAdapter {
     @Override
     public void mouseExited(MouseEvent e) {}
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {}
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if (e.getWheelRotation() < 0){
+            if (WorkEnvironment.scale < 10.0F) WorkEnvironment.scale += 0.1F;
+        } else {
+            if (WorkEnvironment.scale > 1.0F) WorkEnvironment.scale -= 0.1F;
+        }
+        Main.workenvironment.workplace.updateUI();
+    }
     @Override
     public void mouseMoved(MouseEvent e) {}
 }

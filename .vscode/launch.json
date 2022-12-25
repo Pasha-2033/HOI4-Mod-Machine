@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch sample1",
+            "request": "launch",
+            "mainClass": "sample1",
+            "projectName": "HOI4 Mod Machine_4f5871d3"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
