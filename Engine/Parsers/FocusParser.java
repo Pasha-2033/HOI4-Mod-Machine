@@ -47,7 +47,7 @@ public class FocusParser {
                         focus.isloadedlikeshared = true;
                         trees.get(trees.size() - 1).nationalfocuses.add(focus);
                     } else if (code.substring(i - 5, i).equals("focus") && lvl == 1) {
-                        System.out.println(code.charAt(i+1) + i);
+                        //System.out.println(code.charAt(i+1) + i);
                         trees.get(trees.size() - 1).nationalfocuses.add(new NationalFocus());
                         focusopened = true;
                     } else if (focusopened) {

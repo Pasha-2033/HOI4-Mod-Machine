@@ -1,9 +1,10 @@
+package Engine.Translator;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class Syntaxer {
     public static Code Translate(String parsed) {
-        Code result = new Code(null, null, null);
+        Code result = new Code(null, null);
         /*
          * Here should be code for identifying type of script
          */
@@ -22,7 +23,7 @@ public class Syntaxer {
                         expr[0] = expr[0].substring(expr[0].indexOf(">"));
                     }
                     else expr[0] = expr[0].substring(expr[0].indexOf("var") + 2);
-                    result.AddChild(new Code(null, (scope != null) ? scope + '.' + expr[0] : expr[0], Arrays.asList(expr[1])));
+                    //result.AddChild(new Code(null, (scope != null) ? scope + '.' + expr[0] : expr[0], Arrays.asList(expr[1])));
                 }
             }
         }

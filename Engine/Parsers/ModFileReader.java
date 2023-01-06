@@ -16,7 +16,7 @@ public class ModFileReader {
                     sc.close();
                     String dirpath = line.substring(line.indexOf('"') + 1, line.lastIndexOf('"'));
                     String path = Main.modfilepath.substring(0, Main.modfilepath.lastIndexOf('\\') + 1);
-                    System.out.println(path);
+                    //System.out.println(path);
                     if (dirpath.startsWith("mod/")){
                         path += dirpath.substring(4);
                     }
