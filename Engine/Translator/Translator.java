@@ -1,38 +1,67 @@
 package Engine.Translator;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 public class Translator {
     public static final List<Code> PDX_to_LLPL(String compressed) {
         Code root = new Code(null, null);
         Code node = root;
-        boolean str_closed = true;
         for (int i = 0; i < compressed.length(); i++) {
             char c = compressed.charAt(i);
             if (c == '"') {
-                str_closed = !str_closed;
+                int end = compressed.indexOf('"', i + 1);
+                if (end == -1) {
+                    //log: critical syntax error
+                    return new ArrayList<Code>(Collections.emptyList());
+                }
+                end++;
+                node.AddChild(new Code(compressed.substring(i, end)));
+                i = end;
+                node = node.parent;
             }
-            if (str_closed) {
-                if (c == '=') {
-                    for (int ii = i; ii < compressed.length(); i--){
-                        if (IsPDXChildStartSymbol(compressed.charAt(ii))){
-                            Code code = new Code(compressed.substring(i + 1, i));
+            else if (c == '=') {
+                for (int ii = i; ii > -1; ii--) {
+                    if (IsPDXChildEndSymbol(compressed.charAt(ii)) || ii == 0) {
+                        Code code = new Code(compressed.substring(ii == 0 ? 0 : ii + 1, i));
+                        node.AddChild(code);
+                        node = code;
+                        break;
+                    }
+                }
+                if (compressed.charAt(i + 1 < compressed.length() ? i + 1 : i) == '{' && node.childs == null) {
+                    node.childs = new ArrayList<Code>(Collections.emptyList());
+                }
+                else if (compressed.charAt(i + 1 < compressed.length() ? i + 1 : i) != '"'){
+                    for (int ii = i; ii < compressed.length(); ii++) {
+                        if (IsPDXChildEndSymbol(compressed.charAt(ii))) {
+                            Code code = new Code(compressed.substring(i + 1, ii));
                             node.AddChild(code);
-                            node = code;
+                            node = node.parent;
                             break;
                         }
                     }
-                    if (compressed.charAt(i + 1 < compressed.length() ? i + 1 : i) == '{'){
-                        node.childs = new ArrayList<Code>(Collections.emptyList());
+                }
+            }
+            else if (c == '>' || c == '<') {
+                for (int ii = i; ii > -1; ii--){
+                    if (IsPDXChildEndSymbol(compressed.charAt(ii)) || ii == 0) {
+                        Code code = new Code(compressed.substring(ii == 0 ? 0 : ii + 1, i));
+                        node.AddChild(code);
+                        node = code;
+                        break;
                     }
                 }
-                else if (c == '>' || c == '<') {
-                    //to do
+                for (int ii = i; ii < compressed.length(); ii++) {
+                    if (IsPDXChildEndSymbol(compressed.charAt(ii))) {
+                        Code code = new Code(compressed.substring(i, ii));
+                        node.AddChild(code);
+                        node = node.parent;
+                        break;
+                    }
                 }
-                else if (c == '}'){
-                    node = node.parent;
-                }
+            }
+            else if (c == '}') {
+                node = node.parent;
             }
         }
         return root.childs;
@@ -42,10 +71,7 @@ public class Translator {
         //to do
         return result;
     }
-    private static boolean IsPDXChildStartSymbol(char symbol) {
-        return symbol == '{' || symbol == ' ';
-    }
     private static boolean IsPDXChildEndSymbol(char symbol) {
-        return symbol == '}' || symbol == ' ';
+        return symbol == '}' || symbol == '{' || symbol == ' ';
     }
 }

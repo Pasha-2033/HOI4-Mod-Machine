@@ -24,6 +24,7 @@ import Engine.Objects.NationalFocusTree;
 import Engine.Parsers.Compressor;
 import Engine.Parsers.FocusParser;
 import Engine.Translator.Code;
+import Engine.Translator.Translator;
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -35,6 +36,11 @@ public class Main {
         workenvironment.initgui();
         mainappwindow.setVisible(true);
         String s = Compressor.compress("mainclassfolder\\file.txt", true);
+        String test = Compressor.compress("mainclassfolder\\pdx_test.txt", true);
+        List<Code> cl = Translator.PDX_to_LLPL(test);
+        System.out.println(
+            cl.get(0).ToPDXCode(0)
+        );
         Object[] o = FocusParser.parsefocusesandtree(s);
         //System.out.println(s); //for Compressor tests
         /*System.out.println(
@@ -101,7 +107,7 @@ public class Main {
         enum_block.AddChild(enum_val_1);
 
 
-        System.out.println(root_block.ToPDXCode(0));
+        //System.out.println(root_block.ToPDXCode(0));
 
         //String path = "C:\\Users\\User\\Documents\\Paradox Interactive\\Hearts of Iron IV\\mod\\Melnitsa\\common\\national_focus";
         //File dir = new File(path);

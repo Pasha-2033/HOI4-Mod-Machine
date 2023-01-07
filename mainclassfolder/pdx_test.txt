@@ -1,0 +1,14 @@
+d_etk = {
+	set_temp_variable = {
+		tv = 120 #width
+	}
+	if = {
+		limit = {
+			check_variable = {
+				tv2 > tv.GetTokenKey
+			}
+		}
+	}
+	log = " [?tv.GetTokenKey]"
+	log = " [?tv2]"
+}
