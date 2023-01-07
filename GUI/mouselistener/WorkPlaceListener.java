@@ -4,7 +4,7 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputAdapter;
 
-import Engine.WorkEnvironment;
+import Engine.WorkEnvironment_file;
 import Engine.Objects.NationalFocus;
 import GUI.Menu;
 import mainclassfolder.Main;
@@ -12,28 +12,28 @@ public class WorkPlaceListener extends MouseInputAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
-            if (WorkEnvironment.workplacemenu) {
-                WorkEnvironment.workplacemenuinstance.setVisible(false);
-                WorkEnvironment.workplacemenu = false;
+            if (WorkEnvironment_file.workplacemenu) {
+                WorkEnvironment_file.workplacemenuinstance.setVisible(false);
+                WorkEnvironment_file.workplacemenu = false;
             }
         }
         if (SwingUtilities.isRightMouseButton(e)) {
             String type = null;
-            if (!WorkEnvironment.focusmodding.trees.isEmpty()) {
+            if (!WorkEnvironment_file.focusmodding.trees.isEmpty()) {
                 //if mouse in focus shape - type = "focus"
-                for (NationalFocus focus : WorkEnvironment.focusmodding.trees.get(WorkEnvironment.focusmodding.selectedtree).nationalfocuses) {
+                for (NationalFocus focus : WorkEnvironment_file.focusmodding.trees.get(WorkEnvironment_file.focusmodding.selectedtree).nationalfocuses) {
                     //if mouse in focus shape - type = "focus"
                     if (type != null) break;
                 }
             }
-            Main.workenvironment.workplace.remove(WorkEnvironment.workplacemenuinstance);
-            WorkEnvironment.workplacemenuinstance = Menu.WorkPlaceMenu.workplacemenu(type, null);
-            Main.workenvironment.workplace.add(WorkEnvironment.workplacemenuinstance);
-            WorkEnvironment.workplacemenuinstance.setBounds(0, 0,(int) WorkEnvironment.workplacemenuinstance.getPreferredSize().getWidth(),(int) WorkEnvironment.workplacemenuinstance.getPreferredSize().getHeight());
-            WorkEnvironment.workplacemenuinstance.setLocation(e.getX(), e.getY());
-            if (!WorkEnvironment.workplacemenu) {
-                WorkEnvironment.workplacemenuinstance.setVisible(true);
-                WorkEnvironment.workplacemenu = true;
+            Main.workenvironment.workplace.remove(WorkEnvironment_file.workplacemenuinstance);
+            WorkEnvironment_file.workplacemenuinstance = Menu.WorkPlaceMenu.workplacemenu(type, null);
+            Main.workenvironment.workplace.add(WorkEnvironment_file.workplacemenuinstance);
+            WorkEnvironment_file.workplacemenuinstance.setBounds(0, 0,(int) WorkEnvironment_file.workplacemenuinstance.getPreferredSize().getWidth(),(int) WorkEnvironment_file.workplacemenuinstance.getPreferredSize().getHeight());
+            WorkEnvironment_file.workplacemenuinstance.setLocation(e.getX(), e.getY());
+            if (!WorkEnvironment_file.workplacemenu) {
+                WorkEnvironment_file.workplacemenuinstance.setVisible(true);
+                WorkEnvironment_file.workplacemenu = true;
             }
             Main.workenvironment.updateworkplace();
         }
@@ -51,9 +51,9 @@ public class WorkPlaceListener extends MouseInputAdapter {
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         if (e.getWheelRotation() < 0){
-            if (WorkEnvironment.scale < 10.0F) WorkEnvironment.scale += 0.1F;
+            if (WorkEnvironment_file.scale < 10.0F) WorkEnvironment_file.scale += 0.1F;
         } else {
-            if (WorkEnvironment.scale > 1.0F) WorkEnvironment.scale -= 0.1F;
+            if (WorkEnvironment_file.scale > 1.0F) WorkEnvironment_file.scale -= 0.1F;
         }
         Main.workenvironment.workplace.updateUI();
     }

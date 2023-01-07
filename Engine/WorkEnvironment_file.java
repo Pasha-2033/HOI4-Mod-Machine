@@ -28,7 +28,7 @@ import java.awt.Dimension;
 
 import mainclassfolder.Main;
 
-public class WorkEnvironment {
+public class WorkEnvironment_file {
     //move all this to GUI!!!---------------------------------------------------------------------
     //workplace info
     public static boolean workplacemenu = false;
@@ -47,7 +47,7 @@ public class WorkEnvironment {
     public JScrollPane treescrollpane = new JScrollPane(tree);
     public static float scale = 1.0f;
 
-    public WorkEnvironment(){}
+    public WorkEnvironment_file(){}
     //gui operations
     public void initgui(){
         Main.mainappwindow.add(outsplitpane);
@@ -100,11 +100,11 @@ public class WorkEnvironment {
         initfocusmodding(Arrays.asList(focustree), new ArrayList<NationalFocus>(Collections.emptyList()));
     }
     public void initfocusmodding(List<NationalFocusTree> nationalfocustree, List<NationalFocus> sharedfocuses){
-        WorkEnvironment.focusmodding.cleardata();
+        WorkEnvironment_file.focusmodding.cleardata();
         for (NationalFocusTree nft : nationalfocustree) {
-            WorkEnvironment.focusmodding.loadtree(nft);
+            WorkEnvironment_file.focusmodding.loadtree(nft);
         }
-        WorkEnvironment.focusmodding.loadsharedfocuses(sharedfocuses);
+        WorkEnvironment_file.focusmodding.loadsharedfocuses(sharedfocuses);
         titlelable.setText("Генерация древа фокусов");
         updatefocustree();
         treescrollpane.setVisible(true);

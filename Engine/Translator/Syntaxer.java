@@ -1,7 +1,6 @@
 package Engine.Translator;
-import java.util.Arrays;
 import java.util.regex.Pattern;
-
+//delete?-----------------------------------------------------------------------
 public class Syntaxer {
     public static Code Translate(String parsed) {
         Code result = new Code(null, null);

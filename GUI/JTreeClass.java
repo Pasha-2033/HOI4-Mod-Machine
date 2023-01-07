@@ -9,7 +9,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeModel;
 
-import Engine.WorkEnvironment;
+import Engine.WorkEnvironment_file;
 import Engine.Objects.NationalFocus;
 import Engine.Objects.NationalFocusTree;
 
@@ -22,10 +22,10 @@ public class JTreeClass {
         root.add(trees);
         root.add(shared);
         //фокусы
-        for (NationalFocus nationalfocus : WorkEnvironment.focusmodding.sharedfocuses){
+        for (NationalFocus nationalfocus : WorkEnvironment_file.focusmodding.sharedfocuses){
             shared.add(new DefaultMutableTreeNode(nationalfocus));
         }
-        for (NationalFocusTree tree : WorkEnvironment.focusmodding.trees) {
+        for (NationalFocusTree tree : WorkEnvironment_file.focusmodding.trees) {
             DefaultMutableTreeNode t = new DefaultMutableTreeNode(tree);
             for (NationalFocus f : tree.nationalfocuses) {
                 t.add(new DefaultMutableTreeNode(f));

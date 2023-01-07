@@ -2,7 +2,7 @@ package GUI;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
-import Engine.WorkEnvironment;
+import Engine.WorkEnvironment_file;
 import Engine.Objects.NationalFocus;
 import Engine.Objects.NationalFocusTree;
 import Engine.Parsers.ModFileReader;
@@ -38,7 +38,7 @@ public class GUIActions {
     public static class addfocus extends AbstractAction {
         public addfocus(){putValue(NAME, "Создать фокус");}
         public void actionPerformed(ActionEvent e) {
-            NationalFocusTree tree = WorkEnvironment.focusmodding.trees.get(WorkEnvironment.focusmodding.selectedtree);
+            NationalFocusTree tree = WorkEnvironment_file.focusmodding.trees.get(WorkEnvironment_file.focusmodding.selectedtree);
             tree.nationalfocuses.add(new NationalFocus("focus_" + tree.nationalfocuses.size()));
         }
     }
