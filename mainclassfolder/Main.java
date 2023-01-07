@@ -33,6 +33,7 @@ public class Main {
         mainappwindow.setVisible(true);
         String s = Compressor.compress("mainclassfolder\\file.txt", true);
         Object[] o = FocusParser.parsefocusesandtree(s);
+        System.out.println(s);
         /*System.out.println(
             ((List<NationalFocusTree>)o[0]).get(0).id
         );*/
@@ -86,19 +87,16 @@ public class Main {
         root_block.AddChild(if_block);
         if_block.AddChild(limit_block);
         if_block.AddChild(enum_block);
-        if_block.AddChild(effect);
+        if_block.AddChild(effect.AddChild(e_val));
         limit_block.AddChild(check_block_0);
         limit_block.AddChild(check_block_1);
-        check_block_0.AddChild(var_0);
-        check_block_1.AddChild(var_0);
-        var_0.AddChild(check_val_0);
-        var_1.AddChild(check_val_1);
+        check_block_0.AddChild(var_0.AddChild(check_val_0));
+        check_block_1.AddChild(var_1.AddChild(check_val_1));
         enum_block.AddChild(enum_val_0);
         enum_block.AddChild(enum_val_1);
-        effect.AddChild(e_val);
 
 
-        System.out.println(root_block.ToPdxCode(0));
+        //System.out.println(root_block.ToPDXCode(0));
 
         //String path = "C:\\Users\\User\\Documents\\Paradox Interactive\\Hearts of Iron IV\\mod\\Melnitsa\\common\\national_focus";
         //File dir = new File(path);

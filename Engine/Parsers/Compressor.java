@@ -47,9 +47,9 @@ public class Compressor {
                     text += t + "\n";
                 }
             }
-            //сжатие по "="
+            //сжатие по "=", "<", ">"
             for (int i = 0; i < text.length(); i++) {
-                if (text.charAt(i) == '=')  {
+                if (text.charAt(i) == '=' || text.charAt(i) == '>' || text.charAt(i) == '<')  {
                     while (text.charAt(i + 1 < text.length() ? i + 1 : i) == ' ') {
                         text = text.substring(0, i + 1) + text.substring(i + 2);
                     }

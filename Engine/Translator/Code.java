@@ -13,9 +13,9 @@ public class Code {
     public final Code AddChild(Code component) {
         childs.add(component);
         component.parent = this;
-        return component;
+        return this;
     }
-    public final String ToPdxCode(int tab_lvl) {
+    public final String ToPDXCode(int tab_lvl) {
         if(childs.isEmpty()) {
             return GetTabs(tab_lvl) + token + "\n";
         }
@@ -23,7 +23,7 @@ public class Code {
         if (childs.size() > 1 || !childs.get(0).childs.isEmpty()){
             result += GetTabs(tab_lvl++) + token + " = {\n";
             for (Code c : childs) {
-                result += c.ToPdxCode(tab_lvl);
+                result += c.ToPDXCode(tab_lvl);
             }
             result += GetTabs(--tab_lvl) + "}\n";
         }

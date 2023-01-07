@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import mainclassfolder.Main;
 
 public class WorkEnvironment {
+    //move all this to GUI!!!---------------------------------------------------------------------
     //workplace info
     public static boolean workplacemenu = false;
     public static JMenuBar workplacemenuinstance = Menu.WorkPlaceMenu.workplacemenu(null, null);;
