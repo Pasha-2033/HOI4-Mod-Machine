@@ -6,6 +6,7 @@ public class Translator {
     public static final List<Code> PDX_to_LLPL(String compressed) {
         Code root = new Code(null, null);
         Code node = root;
+        int openbracketindex = 0;
         for (int i = 0; i < compressed.length(); i++) {
             char c = compressed.charAt(i);
             if (c == '"') {
@@ -29,6 +30,7 @@ public class Translator {
                     }
                 }
                 if (compressed.charAt(i + 1 < compressed.length() ? i + 1 : i) == '{' && node.childs == null) {
+                    openbracketindex = i + 2;
                     node.childs = new ArrayList<Code>(Collections.emptyList());
                 }
                 else if (compressed.charAt(i + 1 < compressed.length() ? i + 1 : i) != '"'){
@@ -61,6 +63,17 @@ public class Translator {
                 }
             }
             else if (c == '}') {
+                if (node.childs == null) {
+                    //log: critical syntax error
+                    return new ArrayList<Code>(Collections.emptyList());
+                }
+                if (node.childs.isEmpty()) {
+                    String[] array = compressed.substring(openbracketindex, i).split(" ");
+                    for (String iter : array) {
+                        node.AddChild(new Code(iter));
+                    }
+                    node.arrayforced = true;
+                }
                 node = node.parent;
             }
         }

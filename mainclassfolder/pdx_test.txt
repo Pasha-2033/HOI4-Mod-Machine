@@ -11,4 +11,5 @@ d_etk = {
 	}
 	log = " [?tv.GetTokenKey]"
 	log = " [?tv2]"
+	traits = { trait1 }
 }

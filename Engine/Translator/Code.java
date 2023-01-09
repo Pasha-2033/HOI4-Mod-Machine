@@ -5,6 +5,7 @@ import java.util.List;
 public class Code {
     public Code parent = null;
     public String token;
+    public boolean arrayforced = false;
     public List<Code> childs;
     public Code(String token){
         this(token, null);
@@ -32,7 +33,7 @@ public class Code {
             return GetCompledDef(tab_lvl);
         }
         else {
-            if (childs.get(0).childs == null) {
+            if (childs.get(0).childs == null && !arrayforced) {
                 return GetTabs(tab_lvl) + token + GetSignedValue(childs.get(0).token) + "\n";
             }
             return GetCompledDef(tab_lvl);
